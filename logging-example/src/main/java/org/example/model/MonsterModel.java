@@ -9,6 +9,8 @@ public class MonsterModel {
     private final String defense;
     private final String speed;
 
+
+
     public Integer getId() {
         return id;
     }

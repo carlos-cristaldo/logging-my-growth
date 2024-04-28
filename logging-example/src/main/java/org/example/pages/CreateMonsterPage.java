@@ -23,6 +23,30 @@ public class CreateMonsterPage {
     @FindBy(xpath = "//*[@id=\"webpack-dev-server-client-overlay\"]")
     private WebElement iframeError;
 
+    @FindBy(xpath = "//*[@data-testid='btn-create-monster']")
+    private WebElement confirmButton;
+
+    @FindBy(xpath = "//P[text()='Your Monsters']")
+    private WebElement yourMonstersLabel;
+
+    @FindBy(xpath = "//*[@data-testid='monster-card']")
+    private WebElement monsterCard;
+
+    @FindBy(xpath = "//*[@data-testid='card-monster-name']")
+    private WebElement monsterCardName;
+
+    @FindBy(xpath = "//*[@data-testid='card-monster-hp']")
+    private WebElement monsterCardHp;
+
+    @FindBy(xpath = "//*[@data-testid='card-monster-attack']")
+    private WebElement monsterCardAttack;
+
+    @FindBy(xpath = "//*[@data-testid='card-monster-defense']")
+    private WebElement monsterCardDefense;
+
+    @FindBy(xpath = "//*[@data-testid='card-monster-speed']")
+    private WebElement monsterCardSpeed;
+
 
     public CreateMonsterPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -39,6 +63,11 @@ public class CreateMonsterPage {
     public void clickOnMonster(WebDriver driver, Integer monsterId){
         WebElement element = driver.findElement(By.xpath(String.format(Constants.MONSTER_LOCATOR, monsterId)));
         element.click();
+    }
+
+    public String getMonsterImageUrl(WebDriver driver, Integer monsterId){
+        WebElement element = driver.findElement(By.xpath(String.format(Constants.MONSTER_LOCATOR, monsterId)+"/img"));
+        return element.getAttribute("src");
     }
 
     public Boolean isIconMonsterEnabled(WebDriver driver, String monsterId){
@@ -61,6 +90,36 @@ public class CreateMonsterPage {
             setAttribute(driver, e.getKey(), e.getValue());
         }
     }
+
+    public void clickConfirmButton(){
+        confirmButton.click();
+    }
+
+    public Boolean isYourMonstersLabelDisplayed(){
+        System.out.println("LABEL = " + yourMonstersLabel.getText());
+        return yourMonstersLabel.isDisplayed() && monsterCard.isDisplayed();
+    }
+
+    public String getMonsterName(){
+        return monsterCardName.getText();
+    }
+
+    public String getMonsterHp(){
+        return monsterCardHp.getText();
+    }
+
+    public String getMonsterAttack(){
+        return monsterCardAttack.getText();
+    }
+
+    public String getMonsterDefense(){
+        return monsterCardDefense.getText();
+    }
+
+    public String getMonsterSpeed(){
+        return monsterCardSpeed.getText();
+    }
+
 }
 
 

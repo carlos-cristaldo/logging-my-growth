@@ -24,6 +24,18 @@ public class DataBuilder {
         ).build();
     }
 
+    public static MonsterModel monsterBuilderParemeterized(){
+        int monsterId = getRandomNumber(1,5);
+        return new MonsterModel.MonsterBuilder(
+                monsterId,
+                Utils.getRandomString(10),
+                String.valueOf(getRandomNumber(1, 100)),
+                String.valueOf(getRandomNumber(1, 100)),
+                String.valueOf(getRandomNumber(1, 100)),
+                String.valueOf(getRandomNumber(1, 100))
+        ).build();
+    }
+
     public static Map<String, String> dataBuilder(@NotNull MonsterModel monster){
         Map<String, String> data = new HashMap<>();
         data.put(Constants.MONSTER_NAME_ATTR, monster.getName());

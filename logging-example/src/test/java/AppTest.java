@@ -44,10 +44,12 @@ public class AppTest {
 
         long startTime = System.currentTimeMillis();
 
+        //Data Construction
         MonsterModel monster = DataBuilder.monsterBuilder();
         Map<String, String> data = DataBuilder.dataBuilder(monster);
         logger.info("Monster created = {}", monster);
 
+        //Accesing webpage
         mainPage.dismissError(driver);
 
         logger.info("Get App Name = {}", mainPage.getAppName());
@@ -57,8 +59,23 @@ public class AppTest {
         assertTrue(mainPage.isIconMonsterEnabled(driver, String.valueOf(monster.getId())));
 
         mainPage.completeAttributes(data, driver);
+        mainPage.clickConfirmButton();
+
+        assertTrue(mainPage.isYourMonstersLabelDisplayed());
 
 
+        MonsterModel monsterCreated = new MonsterModel.MonsterBuilder(
+                monster.getId(),
+                mainPage.getMonsterName(),
+                mainPage.getMonsterHp(),
+                mainPage.getMonsterAttack(),
+                mainPage.getMonsterDefense(),
+                mainPage.getMonsterSpeed()
+
+        ).build();
+
+        logger.info("Image URL monster by Id = {}", mainPage.getMonsterImageUrl(driver, monster.getId()));
+        logger.info("Image URL monster created by Id = {}", mainPage.getMonsterImageUrl(driver, monsterCreated.getId()));
 
         long endTime = (System.currentTimeMillis() - startTime);
         logger.info("Tiempo de ejecución = {}", endTime);
